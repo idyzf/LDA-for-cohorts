@@ -36,30 +36,3 @@ plot(hab.lda.values$x[,1], type="n", ylab=c("LDA Axis 1"), ylim = c(-10, 10))
 text(hab.lda.values$x[,1], rownames(OSUHCB), col=c(as.numeric(hab.class)+10))
 abline(v=0, lty="dotted")
 abline(h=0, lty="dotted")
-
-
-
-####jose playing with data
-jose_df <- OSUHCB
-head(jose_df)
-jose_df2 <- data.frame()
-for(i in 1:1000) {
-  jose_df2 <- rbind(jose_df2, jose_df[4,])
-}
-range(OSUHCB$CDK7)
-jose_df2$CDK7 <- seq(from = min(OSUHCB$CDK7 ), to = max(OSUHCB$CDK7 ), length.out = nrow(jose_df2))
-
-jose_hdac3_predict <- predict(hab.lda, jose_df2)
-jose_hdac3_predict$posterior
-
-plot(y = jose_hdac3_predict$posterior[,2], x = jose_df2$CDK7, ylab = "OSU Prob", xlab = "CDK7", las = 1
-)
-
-t.test(MGMT ~ Type, data = jose_df)
-plot(y = jose_hdac3_predict)
-
-jose_scale <- hab.lda$scaling %>% as.data.frame
-jose_scale$Gene <- rownames(jose_scale)
-barplot(jose_scale$LD1 ~jose_scale$Gene, las= 2)
-
-
